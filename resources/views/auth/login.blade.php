@@ -1,14 +1,20 @@
 @extends('layouts.app')
 
-@section('title', __('auth.register user'))
+@section('title', __('auth.login'))
 
 @section('content')
+
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             @include('partials.alerts')
             <div class="card">
                 <div class="card-header">
-                    @lang('auth.register user')
+                    <div class="row">
+                        <div class="col-sm-7">
+                            @lang('auth.login')
+                        </div>
+                        <div class="col-sm-5 text-right"><a href=""><small>@lang('auth.login with magic link')</small></a></div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="">
@@ -22,40 +28,34 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="name">@lang('auth.name')</label>
-                            <div class="col-sm-9">
-                                <input value="{{ old('name') }}" type="text" name="name" class="form-control" id="name"
-                                    placeholder="@lang('auth.enter your name')">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="password">@lang('auth.password')</label>
                             <div class="col-sm-9">
                                 <input type="password" name="password" class="form-control" id="password"
                                     placeholder="@lang('auth.enter your password')">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="password_confirmation">@lang('auth.confirm password')</label>
-                            <div class="col-sm-9">
-                                <input type="password" name="password_confirmation" class="form-control"
-                                    id="password_confirmation" placeholder="@lang('auth.confirm your password')">
-                            </div>
+
+                        <div class="offset-sm-3">
+                            {{-- @include('partials.recaptcha') --}}
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="phone_number">@lang('auth.phone number')</label>
-                            <div class="col-sm-9">
-                                <input value="{{ old('phone_number') }}" name="phone_number" type="tel"
-                                    class="form-control" id="phone_number"
-                                    placeholder="@lang('auth.enter your phone number')">
+                            <div class="form-check offset-sm-3">
+                                <input type="checkbox" class="form-check-input" name="remember" id="remember">
+                                <label class="form-check-label" for="remember"><small>@lang('auth.remember me')</small></label>
+                            </div>
+                            <div class="form-check">
+                                <a href=""><small>@lang('auth.forget your password?')</small></a>
                             </div>
                         </div>
                         <div class="offset-sm-3">
                             @include('partials.validation-errors')
                         </div>
-                        <button type="submit" class="btn btn-primary">@lang('auth.register')</button>
-                    </form>
+                        <div class="offset-sm-3">
+                            <button type="submit" class="btn btn-primary">@lang('auth.login')</button>
+                            {{-- <a href="" class="btn btn-danger">@lang('auth.login with google')</a> --}}
+                        </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
