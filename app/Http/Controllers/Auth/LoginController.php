@@ -21,7 +21,7 @@ class LoginController extends Controller
     |
     */
 
-    // use AuthenticatesUsers;
+    // use ThrottlesLogins;
 
     /**
      * Where to redirect users after login.
@@ -49,6 +49,7 @@ class LoginController extends Controller
     {
         #validation
         $this->validateForm($request);
+        
         #check user and pass
 
         if ($this->attemptLogin($request)) {
