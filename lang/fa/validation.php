@@ -45,7 +45,7 @@ return [
     'email'                => ':attribute باید یک ایمیل معتبر باشد.',
     'ends_with'            => 'فیلد :attribute باید با یکی از مقادیر زیر خاتمه یابد: :values',
     'enum'                 => 'The selected :attribute is invalid.',
-    'exists'               => ':attribute انتخاب شده، معتبر نیست.',
+    'exists'               => ':attribute انتخاب شده، داخل سیستم وجود ندارد.',
     'file'                 => ':attribute باید یک فایل معتبر باشد.',
     'filled'               => 'فیلد :attribute باید مقدار داشته باشد.',
     'gt'                   => [
@@ -151,6 +151,8 @@ return [
         'user' => 'کاربر',
         'email_type' => 'نوع ایمیل',
         'text' => 'متن پیام کوتاه',
+        'name' => 'نام',
+        'phone_number' => 'شماره تلفن',
 
     ],
 

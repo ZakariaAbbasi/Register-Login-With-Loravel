@@ -12,7 +12,7 @@ return [
     'enter your password' => 'کلمه عبور خود را وارد کنید',
     'confirm password' => 'تایید کلمه عبور',
     'confirm your password' => 'کلمه عبور خود را تایید کنید ',
-    'phone number' => 'شماره تلفن',
+    'phone number' => 'شماره تلفن(اختیاری)',
     'enter your phone number' => 'شماره تلفن خود را وارد کنید',
     'remember me' => 'مرا به خاطر بسپار!',
     'forget your password?' => 'رمز عبور خود را فراموش کرده‌اید؟',
@@ -63,5 +63,6 @@ return [
     'deactivate' => 'لغو کردن',
     'twoFactorDeactivated' => 'احراز هویت ۲ مرحله ای با موفقیت غیرفعال شد.',
     'activate' => 'فعال سازی',
-    'codeResent' => 'کد احرازهویت برای شما دوباره ارسال شد.'
+    'codeResent' => 'کد احرازهویت برای شما دوباره ارسال شد.',
+    'user or pass was wrong' => ' نام کاربری یا کلمه عبور نادرست میباشد',
 ];
