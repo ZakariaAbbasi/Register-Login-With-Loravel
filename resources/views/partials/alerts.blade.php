@@ -15,3 +15,15 @@
        @lang('auth.email has verified') 
     </div>
 @endif
+
+@if (session('resetLinkSend'))
+    <div class="alert alert-success">
+       @lang('auth.reset link send') 
+    </div>
+@endif
+
+@if (session('resetLinkFailed'))
+    <div class="alert alert-danger">
+        @lang('auth.reset link failed') 
+    </div>
+@endif

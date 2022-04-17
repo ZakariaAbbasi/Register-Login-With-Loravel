@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+
+use App\Events\UserRegitered;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -73,6 +75,7 @@ class RegisterController extends Controller
         $user = $this->create($validation);
         #login user
         Auth::login($user);
+        event(new UserRegitered($user));
         #redirect
         return redirect()->route('home')->with('registered', true);
         // dd($user);

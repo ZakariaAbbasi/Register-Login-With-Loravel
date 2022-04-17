@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Mail;
+
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ForgetPassword extends Mailable
+class ResetPasswordEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -15,7 +17,7 @@ class ForgetPassword extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(private User $user, private string $token)
     {
         //
     }
@@ -27,6 +29,13 @@ class ForgetPassword extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.forget-password');
+        return $this->markdown('emails.reset-password')->with([
+            'link' => $this->generateLink(),
+        ]);
     }
+
+    protected function generateLink()
+    {
+        return route('auth.password.reset.form', ['token' => $this->token, 'email' => $this->user->email ]);
+    }  
 }

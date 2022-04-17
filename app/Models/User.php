@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Jobs\SendEmail;
+use App\Mail\ResetPasswordEmail;
 use App\Mail\VerificationEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -47,7 +48,12 @@ class User extends Authenticatable
 
     public function sendEmailVerificationNotification()
     {
-        
-       return SendEmail::dispatch($this, new  VerificationEmail($this));
+
+        SendEmail::dispatch($this, new  VerificationEmail($this));
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        SendEmail::dispatch($this, new  ResetPasswordEmail($this, $token));
     }
 }
