@@ -17,15 +17,14 @@
     @include('partials.navbar')
     @if (session('mustVerifyEmail'))
         <div class="alert alert-danger text-center">
-            @lang('auth.you must verify your email')
+            @lang('auth.you must verify your email', ['link' => route('auth.email.send.verification')])
         </div>
     @endif
-    {{--
     @if (session('verificationEmailSent'))
         <div class="alert alert-success text-center">
             @lang('auth.verification email sent')
         </div>
-    @endif --}}
+    @endif
     <div class="container">
         @yield('content')
     </div>
