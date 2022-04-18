@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -39,7 +38,6 @@ class SocialsController extends Controller
         $providerUser = User::where('email', $user->getEmail())->first();
 
         if (!is_null($providerUser)) {
-
             $this->findOrUpdateUser($providerUser, $user, $driver);
             return $providerUser;
         }

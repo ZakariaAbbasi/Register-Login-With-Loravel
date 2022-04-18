@@ -46,7 +46,7 @@
                         <div class="form-group row">
                             <div class="form-check offset-sm-3">
                                 <input type="checkbox" class="form-check-input" name="remember" id="remember">
-                                <label class="form-check-label" for="remember"><small>@lang('auth.remember me')</small></label>
+                                <label class="form-check-label " for="remember"><small>@lang('auth.remember me')</small></label>
                             </div>
                             <div class="form-check">
                                 <a href="{{ route('auth.forget.password.form') }}"><small>@lang('auth.forget your password?')</small></a>
@@ -56,10 +56,15 @@
                             @include('partials.validation-errors')
                         </div>
                         <div class="offset-sm-3">
-                            <button type="submit" class="btn btn-primary">@lang('auth.login')</button>
-                            <a href="{{ route('auth.login.provider.redirect', ['provider' => 'google']) }}" class="btn btn-danger">@lang('auth.login with google')</a>
-                            <a href="{{ route('auth.login.provider.redirect', ['provider' => 'github']) }}" class="btn btn-danger">@lang('auth.login with github')</a>
+                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">@lang('auth.login')</button>
+                        
                         </div>
+
+                        <div class="offset-sm-3 mt-3">
+                             <a class="btn btn-lg btn-google " href="{{ route('auth.login.provider.redirect', ['provider' => 'google']) }}"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> @lang('auth.login with google')</a> 
+                            <a class="btn btn-lg btn-google" href="{{ route('auth.login.provider.redirect', ['provider' => 'github']) }}"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> @lang('auth.login with github')</a> 
+                        </div>
+
                 </div>
                 </form>
             </div>
