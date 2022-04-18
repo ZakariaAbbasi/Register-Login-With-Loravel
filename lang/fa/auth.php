@@ -38,6 +38,7 @@ return [
     'passwordChanged' => 'کلمه عبور با موفقیت تعویض شد.',
     'recaptcha' => 'لطفا تیک من ربات نیستم را بزنید.',
     'login with google' => 'ورود با گوگل',
+    'login with github' => 'ورود با گیت هاب',
     'login with magic link' => 'ورود بدون رمز عبور',
     // 'send magic link' => 'ارسال لینک ورود',
     // 'magicLinkSent' => 'لینک ورود با موفقیت ارسال شد.',
