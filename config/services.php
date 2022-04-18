@@ -37,4 +37,10 @@ return [
         'base_uri' => env('RECAPTCHA_BASE_URI'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLAINT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_LINK'),
+    ]
+
 ];
