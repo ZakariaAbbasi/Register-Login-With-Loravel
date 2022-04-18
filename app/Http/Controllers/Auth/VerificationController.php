@@ -45,7 +45,7 @@ class VerificationController extends Controller
 
     public function send()
     {
-      
+
         if (Auth::user()->hasVerifiedEmail()) {
             return redirect()->route('home');
         }
@@ -53,7 +53,6 @@ class VerificationController extends Controller
         Auth::user()->sendEmailVerificationNotification();
 
         return redirect()->back()->with('verificationEmailSent', true);
-
     }
 
     public function verify(Request $request)
@@ -70,6 +69,5 @@ class VerificationController extends Controller
         $request->user()->markEmailAsVerified();
         session()->forget('mustVerifyEmail');
         return redirect()->route('home')->with('emailHasVerified', true);
-
     }
 }

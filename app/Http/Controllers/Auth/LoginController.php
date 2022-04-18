@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,6 @@ class LoginController extends Controller
     {
         #validation
         $this->validateForm($request);
-        
         #check user and pass
 
         if ($this->attemptLogin($request)) {
@@ -62,8 +62,12 @@ class LoginController extends Controller
     {
         $request->validate(
             [
-                'email' => 'required|email|exists:users',
-                'password' => 'required',
+                'email' => ['required', 'email', 'exists:users'],
+                'password' => ['required'],
+                'g-recaptcha-response' => ['required', new Recaptcha],
+            ],
+            [
+                'g-recaptcha-response.required' => __('auth.recaptcha'),
             ]
         );
     }

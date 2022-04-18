@@ -2,6 +2,10 @@
 
 @section('title', __('auth.login'))
 
+@section('links')
+    <script src="https://www.google.com/recaptcha/api.js?hl=fa" async defer></script>
+@endsection
+
 @section('content')
 
     <div class="row justify-content-center">
@@ -13,7 +17,8 @@
                         <div class="col-sm-7">
                             @lang('auth.login')
                         </div>
-                        <div class="col-sm-5 text-right"><a href=""><small>@lang('auth.login with magic link')</small></a></div>
+                        <div class="col-sm-5 text-right"><a href=""><small>@lang('auth.login with magic link')</small></a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -36,7 +41,7 @@
                         </div>
 
                         <div class="offset-sm-3">
-                            {{-- @include('partials.recaptcha') --}}
+                            @include('partials.recaptcha')
                         </div>
                         <div class="form-group row">
                             <div class="form-check offset-sm-3">
