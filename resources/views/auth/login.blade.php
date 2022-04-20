@@ -17,7 +17,7 @@
                         <div class="col-sm-7">
                             @lang('auth.login')
                         </div>
-                        <div class="col-sm-5 text-right"><a href=""><small>@lang('auth.login with magic link')</small></a>
+                        <div class="col-sm-5 text-right"><a href="{{ route('auth.magic.login.form') }}"><small>@lang('auth.login with magic link')</small></a>
                         </div>
                     </div>
                 </div>

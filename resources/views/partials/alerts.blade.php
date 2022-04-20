@@ -39,3 +39,15 @@
        @lang('auth.passwordChanged') 
     </div>
 @endif
+
+@if (session('magicLinkSend'))
+    <div class="alert alert-success">
+       @lang('auth.magicLinkSend') 
+    </div>
+@endif
+
+@if (session('invalidToken'))
+    <div class="alert alert-danger">
+        @lang('auth.invalidToken') 
+    </div>
+@endif

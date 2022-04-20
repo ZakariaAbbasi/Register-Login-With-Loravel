@@ -3,18 +3,19 @@
 namespace App\Models;
 
 use App\Jobs\SendEmail;
-use App\Mail\ResetPasswordEmail;
 use App\Mail\VerificationEmail;
+use App\Mail\ResetPasswordEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\Auth\Traits\MagicallyAuthenticable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+    use HasFactory, Notifiable, MagicallyAuthenticable;
+    // use HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *
