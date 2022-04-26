@@ -39,7 +39,9 @@ class MagicAuthentication
     {
 
         $token->delete();
+
         # validation token
+        
         if ($token->isExpaired()) {
             return self::INVALID_TOKEN;
         }

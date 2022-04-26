@@ -154,6 +154,7 @@ return [
         'name' => 'نام',
         'phone_number' => 'شماره تلفن',
         'token' => 'توکن',
+        'code' => 'کد',
 
     ],
 

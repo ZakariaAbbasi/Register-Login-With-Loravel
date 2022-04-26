@@ -3,7 +3,6 @@
 namespace App\Services\Notifications\Providers;
 
 use App\Models\User;
-use Ghasedak\GhasedakApi;
 use Ghasedak\Exceptions\ApiException;
 use Ghasedak\Exceptions\HttpException;
 use App\Services\Notifications\Contracts\ProviderInterface;
@@ -21,7 +20,6 @@ class SmsProvider implements ProviderInterface
 
     public function send()
     {
-
         $this->userHavePhoneNumber();
 
         try {
@@ -38,8 +36,8 @@ class SmsProvider implements ProviderInterface
         $message = $this->text;
         $lineNumber = config('services.sms.auth.sms_line_number');
         $receptor = $this->user->phone_number;
-        $api = new GhasedakApi(config('services.sms.api_key'));
-        return $api->SendSimple($receptor, $message, $lineNumber);
+        $api = new \Ghasedak\GhasedakApi(config('services.sms.api_key'));
+        $api->SendSimple($receptor,$message,$lineNumber);  
     }
 
     private function userHavePhoneNumber()

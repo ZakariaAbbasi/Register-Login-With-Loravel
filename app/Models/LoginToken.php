@@ -12,7 +12,7 @@ class LoginToken extends Model
 {
     use HasFactory;
 
-    private const TOKEN_EXPAIRY = 120;
+    private const TOKEN_EXPAIRY = 10;
     
     protected $fillable = ['token'];
 
@@ -34,5 +34,10 @@ class LoginToken extends Model
     public function isExpaired()
     {
         return $this->created_at->diffInSeconds(now()) > self::TOKEN_EXPAIRY;
+    }
+
+    public function scopeExpaired($query)
+    {
+        return $query->where('created_at', '<', now()->subSeconds(self::TOKEN_EXPAIRY));
     }
 }

@@ -1,8 +1,9 @@
 <?php
+namespace App\Http\Controllers\Auth;
 
-namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -16,7 +17,7 @@ class SocialsController extends Controller
         if (!$this->isProviderAllowed($driver)) return redirect()->route('home');
 
         try {
-            return Socialite::driver($driver)->redirect();
+            return Socialite::driver($driver)->stateless()->redirect();
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -25,7 +26,7 @@ class SocialsController extends Controller
 
     public function handleProviderCallback($driver)
     {
-        $user = Socialite::driver($driver)->user();
+        $user = Socialite::driver($driver)->stateless()->user();
 
         Auth::login($this->loginAccount($user, $driver));
 
@@ -42,7 +43,7 @@ class SocialsController extends Controller
             return $providerUser;
         }
 
-        $this->findOrCreateUser($user, $driver);
+        return $this->findOrCreateUser($user, $driver);
     }
 
     protected function findOrUpdateUser($providerUser, $user, $driver)

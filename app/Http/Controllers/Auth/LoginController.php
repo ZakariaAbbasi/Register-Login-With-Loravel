@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
+use App\Http\Requests\CodeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use App\Services\Auth\TwoFactorAuthentication;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,7 +39,7 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(private TwoFactorAuthentication $twoFactor)
     {
         $this->middleware('guest')->except('logout');
     }
@@ -46,16 +49,39 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function showCodeForm()
+    {
+        return view('auth.two-factor.login-code');
+    }
+
     public function login(Request $request)
     {
         #validation
         $this->validateForm($request);
-        #check user and pass
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginSuccessResponse();
+        #check user and pass
+        if (!$this->isValidCredential($request)) {
+            return $this->sendLoginFailedResponse();
         }
-        return $this->sendLoginFailedResponse();
+
+        $user = $this->getUser($request);
+
+        if ($user->hasTwoFactor()) {
+            $this->twoFactor->requestCode($user);
+            return $this->sendHasTwoFactorResponse();
+        }
+
+        Auth::login($user, $request->remember);
+        return $this->sendLoginSuccessResponse();
+    }
+
+    public function confirmCode(CodeRequest $request)
+    {
+        $response = $this->twoFactor->login();
+
+        return $response === $this->twoFactor::AUTHENTICATED
+            ? $this->sendLoginSuccessResponse()
+            : back()->with('invalidCode', true);
     }
 
     protected function validateForm(Request $request)
@@ -64,7 +90,7 @@ class LoginController extends Controller
             [
                 'email' => ['required', 'email', 'exists:users'],
                 'password' => ['required'],
-                'g-recaptcha-response' => ['required', new Recaptcha],
+                // 'g-recaptcha-response' => ['required', new Recaptcha],
             ],
             [
                 'g-recaptcha-response.required' => __('auth.recaptcha'),
@@ -72,10 +98,25 @@ class LoginController extends Controller
         );
     }
 
-    protected function attemptLogin(Request $request)
+    protected function isValidCredential($request)
     {
-        return Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->filled('remember'));
+        return Auth::validate($request->only(['email', 'password']));
     }
+
+    protected function getUser($request)
+    {
+        return User::where('email', $request->email)->firstOrFail();
+    }
+
+    protected function sendHasTwoFactorResponse()
+    {
+        return redirect()->route('auth.login.code.form');
+    }
+
+    // protected function attemptLogin(Request $request)
+    // {
+    //     return Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->filled('remember'));
+    // }
 
     protected function sendLoginSuccessResponse()
     {

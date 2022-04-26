@@ -30,6 +30,13 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'sms' => [
+        'auth' => [
+            'sms_line_number' => env('SMS_LINE_NUMBER'),
+        ],
+        'api_key' => env('GHASEDAK_API_KEY'),
+
+    ],
 
     'recaptcha' => [
         'site_key' => env('RECPTCHA_SITE_KEY'),
